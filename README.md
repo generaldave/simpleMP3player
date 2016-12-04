@@ -1,7 +1,7 @@
 Simple MP3 Player
 
-Written in Python 3.4.3
-using pygame 1.9.2b1
+- Written in Python 3.4.3
+- using pygame 1.9.2b1
 
 
 
@@ -9,8 +9,8 @@ using pygame 1.9.2b1
 To install pygame:
 from the command prompt or Terminal, run the following:
 
-python -m pip install --upgrade pip
-python -m pip install pygame
+- python -m pip install --upgrade pip
+- python -m pip install pygame
 
 
 
