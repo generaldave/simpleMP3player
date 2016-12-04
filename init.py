@@ -98,8 +98,8 @@ class SimpleMP3Player(object):
 
     # Method sets up Information Block
     def setupInformation(self):
-        Title = "War Pigs"
-        Path  = "Black Sabbath/Paranoid"
+        Title = "Song Title"
+        Path  = "Path/From/Main/Directory"
 
         # Initialize Information Block
         self.informationBlock = InformationBlock(self.screen, Title, \
@@ -107,7 +107,7 @@ class SimpleMP3Player(object):
 
     # Method sets up Directory Block
     def setupDirectory(self):
-        Directory = "/media/generaldave/storage/Music/"
+        Directory = "/Chosen/Directory/"
 
         # Initialize Directory Block
         self.directoryBlock = DirectoryBlock(self.screen, Directory, \
@@ -144,8 +144,8 @@ class SimpleMP3Player(object):
                     elif self.nextButton.obj.collidepoint(self.mouse):
                         image = self.directory + "/images/nextDown.png"
                         self.nextButton.setImage(image)
-                        title = "Paranoid"
-                        path  = "Black Sabbath/Paranoid"
+                        title = "Song Two"
+                        path  = "Next/Path"
                         self.informationBlock.setSongTitleAndPath(title, \
                                                                   path)
                     elif self.directoryButton.obj.collidepoint(self.mouse):
