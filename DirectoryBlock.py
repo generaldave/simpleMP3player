@@ -32,9 +32,9 @@ class DirectoryBlock(object):
     path = os.path.dirname(os.path.realpath(__file__))
     
     def __init__(self, screen, directory, fps, mouse):
-        self.screen = screen                   # Screen
-        self.fps    = fps                      # Frames per second
-        self.mouse  = mouse                    # For mouse position
+        self.screen = screen    # Screen
+        self.fps    = fps       # Frames per second
+        self.mouse  = mouse     # For mouse position
         self.timer  = Seconds['THREE']
         self.image  = "/images/directory.png"
         

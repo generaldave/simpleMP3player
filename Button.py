@@ -59,8 +59,8 @@ class Button:
             self.is_hover = False
 
     # Method sets image
-    def setImage(self, imagePath):
-        self.image = pygame.image.load(imagePath)
+##    def setImage(self, imagePath):
+##        self.image = pygame.image.load(imagePath)
 
     # Method sets default image
     def setDefaultImage(self):
