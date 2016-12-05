@@ -111,7 +111,7 @@ class SimpleMP3Player(object):
 
     # Method sets up Directory Block
     def setupDirectory(self):
-        Directory = "/Chosen Directory/"
+        Directory = "/Main/Directory/"
 
         # Initialize Directory Block
         self.directoryBlock = DirectoryBlock(self.screen, Directory, \

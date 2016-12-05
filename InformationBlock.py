@@ -40,7 +40,7 @@ class InformationBlock(object):
         self.X                    = 15
         self.title                = title
         self.titleAreaCoordinates = (0, 0, 175, 80)
-        self.titleFontSize        = 22
+        self.titleFontSize        = 24
         self.titleY               = 18
         self.path                 = path
         self.pathAreaCoordinates  = (0, 0, 250, 80)
@@ -77,7 +77,7 @@ class InformationBlock(object):
     # Method sets up song path
     def setupSongPath(self):
         self.songPath = ScrollingText(self.screen, self.path,   \
-                                      self.titleFontSize,       \
+                                      self.pathFontSize,       \
                                       self.X, self.pathY,       \
                                       self.pathAreaCoordinates, \
                                       self.fps, self.textColor, \
