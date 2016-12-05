@@ -19,7 +19,7 @@ from   Structures       import *   # Colour and Seconds Struct
 from   Button           import *   # Button Class
 from   ScrollingText    import *   # Scrolling Text Class
 from   InformationBlock import *   # Information Block Class
-#from   ButtonsBlock     import *   # Buttons Block Class
+from   ButtonBlock      import *   # Buttons Block Class
 from   DirectoryBlock   import *   # Directory Block Class
 from   TimeBlock        import *   # Directory Block Class
 import pygame                      # For GUI
@@ -64,41 +64,10 @@ class SimpleMP3Player(object):
         self.setupDirectory()
         self.setupTime()
 
-    # Method draws buttons
-    def drawButtons(self):
-        self.previousButton.draw(self.mouse, \
-                                 (10,100,52,52), (11,101))
-        self.playButton.draw(self.mouse, \
-                             (62,100,52,52), (63,101))
-        self.pauseButton.draw(self.mouse, \
-                              (114,100,52,52), (115,101))
-        self.stopButton.draw(self.mouse, \
-                             (166,100,52,52), (167,101))
-        self.nextButton.draw(self.mouse, \
-                             (218,100,52,52), (219,101))
-
-    # Method sets up Buttons
+    # Method sets up buttons
     def setupButtons(self):
-        self.previousButton  = Button(self.screen, \
-                                      'previous', \
-                                      self.directory + \
-                                      "/images/previous.png")
-        self.playButton      = Button(self.screen, \
-                                      'play', \
-                                      self.directory + \
-                                      "/images/play.png")
-        self.pauseButton     = Button(self.screen, \
-                                      'pause', \
-                                      self.directory + \
-                                      "/images/pause.png")
-        self.stopButton      = Button(self.screen, \
-                                      'stop', \
-                                      self.directory + \
-                                      "/images/stop.png")
-        self.nextButton      = Button(self.screen, \
-                                      'next', \
-                                      self.directory + \
-                                      "/images/next.png")
+        self.buttonBlock = ButtonBlock(self.screen, self.directory, \
+                                       self.mouse)
 
     # Method sets up Information Block
     def setupInformation(self):
@@ -133,21 +102,16 @@ class SimpleMP3Player(object):
                 if event.type == pygame.QUIT:
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.previousButton.obj.collidepoint(self.mouse):
-                        image = self.directory + "/images/previousDown.png"
-                        self.previousButton.setImage(image)
-                    elif self.playButton.obj.collidepoint(self.mouse):
-                        image = self.directory + "/images/playDown.png"
-                        self.playButton.setImage(image)
-                    elif self.pauseButton.obj.collidepoint(self.mouse):
-                        image = self.directory + "/images/pauseDown.png"
-                        self.pauseButton.setImage(image)
-                    elif self.stopButton.obj.collidepoint(self.mouse):
-                        image = self.directory + "/images/stopDown.png"
-                        self.stopButton.setImage(image)
-                    elif self.nextButton.obj.collidepoint(self.mouse):
-                        image = self.directory + "/images/nextDown.png"
-                        self.nextButton.setImage(image)
+                    if self.buttonBlock.previousButton.obj.collidepoint(self.mouse):
+                        self.buttonBlock.mouseDown("previous")
+                    elif self.buttonBlock.playButton.obj.collidepoint(self.mouse):
+                        self.buttonBlock.mouseDown("play")
+                    elif self.buttonBlock.pauseButton.obj.collidepoint(self.mouse):
+                        self.buttonBlock.mouseDown("pause")
+                    elif self.buttonBlock.stopButton.obj.collidepoint(self.mouse):
+                        self.buttonBlock.mouseDown("stop")
+                    elif self.buttonBlock.nextButton.obj.collidepoint(self.mouse):
+                        self.buttonBlock.mouseDown("next")
                         title = "Song Two"
                         path  = "Next/Path"
                         self.informationBlock.setSongTitleAndPath(title, \
@@ -156,17 +120,13 @@ class SimpleMP3Player(object):
                         directory = "/New/Directory/"
                         self.directoryBlock.mouseDown(directory)
                 elif event.type == pygame.MOUSEBUTTONUP:
-                    self.previousButton.setDefaultImage()
-                    self.playButton.setDefaultImage()
-                    self.pauseButton.setDefaultImage()
-                    self.stopButton.setDefaultImage()
-                    self.nextButton.setDefaultImage()
+                    self.buttonBlock.mouseUp()
                     self.directoryBlock.mouseUp()
             
             self.informationBlock.update()
             self.directoryBlock.update()
             self.timeBlock.update("2:35")
-            self.drawButtons()
+            self.buttonBlock.update()
             pygame.display.update()
             self.clock.tick(self.fps)
             

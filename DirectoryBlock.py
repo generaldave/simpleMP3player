@@ -28,8 +28,8 @@ import os                       # For filesystem paths
 #######################################################################
 
 class DirectoryBlock(object):
-    # Filesystem path to file
-    #path = os.path.dirname(os.path.realpath(__file__))
+    # File's directory
+    path = os.path.dirname(os.path.realpath(__file__))
     
     def __init__(self, screen, directory, fps, mouse):
         self.screen = screen                   # Screen
@@ -50,7 +50,7 @@ class DirectoryBlock(object):
         self.areaCoordinates = (0, 0, 198, 52)
         self.fontSize        = 17
 
-        # Setup Rectangle
+        # Setup DirectoryBlock
         self.setupRect()
         self.setupDirectory()
 
@@ -67,17 +67,16 @@ class DirectoryBlock(object):
 
     # Method sets up directory
     def setupDirectory(self):
-        imagePath = os.path.dirname(os.path.realpath(__file__)) + \
-                    self.image
+        imagePath = self.path + self.image
         self.directoryButton = Button(self.screen, 'directory', imagePath)
         self.directoryButton.draw(self.mouse, \
                                  (10,182,52,52), (11,183))
         
         self.directoryText = ScrollingText(self.screen, self.directory,   \
-                                       self.fontSize, self.X, self.Y, \
-                                       self.areaCoordinates,          \
-                                       self.fps, self.textColor,      \
-                                       self.timer)
+                                           self.fontSize, self.X, self.Y, \
+                                           self.areaCoordinates,          \
+                                           self.fps, self.textColor,      \
+                                           self.timer)
 
     # Method changes image for mouse down
     def mouseDown(self, directory):
