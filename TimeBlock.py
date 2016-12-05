@@ -57,6 +57,6 @@ class TimeBlock(object):
 
     # Method updates DirectoryBlock, redraw rec and scroll text
     def update(self, time):
-        self.timer = time
+        self.time = time
         self.setupRect()
         self.setupTime()

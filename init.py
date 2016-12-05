@@ -22,6 +22,7 @@ from   InformationBlock import *   # Information Block Class
 from   ButtonBlock      import *   # Buttons Block Class
 from   DirectoryBlock   import *   # Directory Block Class
 from   TimeBlock        import *   # Directory Block Class
+from   Music            import *   # Handles the music
 import pygame                      # For GUI
 
 #######################################################################
@@ -38,6 +39,9 @@ class SimpleMP3Player(object):
         pygame.init()
         pygame.font.init()
         self.fps = 60
+
+        # Initialize music player
+        self.musicPlayer = Music()
         
         # Call method to set up GUI
         self.setupGUI()
@@ -71,8 +75,8 @@ class SimpleMP3Player(object):
 
     # Method sets up Information Block
     def setupInformation(self):
-        Title = "Song Title"
-        Path  = "Path/From/Main/Directory"
+        Title = "2 Evil Deeds"
+        Path  = "Eminem"
 
         # Initialize Information Block
         self.informationBlock = InformationBlock(self.screen, Title, \
@@ -80,7 +84,7 @@ class SimpleMP3Player(object):
 
     # Method sets up Directory Block
     def setupDirectory(self):
-        Directory = "/Main/Directory/"
+        Directory = "Music/"
 
         # Initialize Directory Block
         self.directoryBlock = DirectoryBlock(self.screen, Directory, \
@@ -88,7 +92,7 @@ class SimpleMP3Player(object):
 
     # Method sets up Time Block
     def setupTime(self):
-        Time = "2:35"
+        Time = self.musicPlayer.getPosition()
 
         self.timeBlock = TimeBlock(self.screen, Time, self.fps)
 
@@ -106,10 +110,14 @@ class SimpleMP3Player(object):
                         self.buttonBlock.mouseDown("previous")
                     elif self.buttonBlock.playButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("play")
+                        self.musicPlayer.play()
                     elif self.buttonBlock.pauseButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("pause")
+                        self.musicPlayer.pause()
                     elif self.buttonBlock.stopButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("stop")
+                        self.musicPlayer.stop()
+                        self.timeBlock.update("00:00")
                     elif self.buttonBlock.nextButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("next")
                         title = "Song Two"
@@ -125,7 +133,7 @@ class SimpleMP3Player(object):
             
             self.informationBlock.update()
             self.directoryBlock.update()
-            self.timeBlock.update("2:35")
+            self.timeBlock.update(self.musicPlayer.getPosition())
             self.buttonBlock.update()
             pygame.display.update()
             self.clock.tick(self.fps)
