@@ -25,7 +25,8 @@ import pygame                # For GUI
 #######################################################################
 
 class Button:
-    def __init__(self, text, img):
+    def __init__(self, screen, text, img):
+        self.screen       = screen
         self.text         = text
         self.is_hover     = False
         self.obj          = None
@@ -43,9 +44,9 @@ class Button:
     # Draws button
     # rectcoord: x, y, width, height
     # imagecoord: x, y
-    def draw(self, screen, mouse, rectcoord, imagecoord):
-        self.obj  = pygame.draw.rect(screen, self.color(), rectcoord)
-        screen.blit(self.image, imagecoord)
+    def draw(self, mouse, rectcoord, imagecoord):
+        self.obj  = pygame.draw.rect(self.screen, self.color(), rectcoord)
+        self.screen.blit(self.image, imagecoord)
       
         # Change color if mouse over button
         self.check_hover(mouse)
@@ -58,8 +59,8 @@ class Button:
             self.is_hover = False
 
     # Method sets image
-    def setImage(self, img):
-        self.image = pygame.image.load(img)
+    def setImage(self, imagePath):
+        self.image = pygame.image.load(imagePath)
 
     # Method sets default image
     def setDefaultImage(self):
