@@ -51,7 +51,7 @@ class SimpleMP3Player(object):
         # Initialize song list
         self.songs = SongList(self.musicDirectory)
         self.musicDirectory = self.songs.getDirectory()
-        
+        self.musicDirectory = self.musicDirectory.rstrip("/") + "/"        
         # Initialize music player
         self.musicPlayer = Music()
 
@@ -135,10 +135,17 @@ class SimpleMP3Player(object):
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.buttonBlock.previousButton.obj.collidepoint(self.mouse):
-                        self.buttonBlock.mouseDown("previous")
-                        if (self.currentSong != 0):
-                            self.currentSong = self.currentSong - 1
-                            self.changeSong()
+                        good = False
+                        while not good:
+                            try:
+                                self.buttonBlock.mouseDown("previous")
+                                if (self.currentSong != 0):
+                                    self.currentSong = self.currentSong - 1
+                                    self.changeSong()
+                                good = True
+                            except:
+                                good = False
+                                
                     elif self.buttonBlock.playButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("play")
                         self.musicPlayer.play()
@@ -150,27 +157,38 @@ class SimpleMP3Player(object):
                         self.musicPlayer.stop()
                         self.timeBlock.update(self.musicPlayer.getPosition())
                     elif self.buttonBlock.nextButton.obj.collidepoint(self.mouse):
-                        self.buttonBlock.mouseDown("next")
-                        if (self.currentSong == self.songs.getSongCount() - 1):
-                            self.currentSong = 0
-                        else:
-                            self.currentSong = self.currentSong + 1
-                        self.changeSong()
+                        good = False
+                        while not good:
+                            try:
+                                self.buttonBlock.mouseDown("next")
+                                if (self.currentSong == self.songs.getSongCount() - 1):
+                                    self.currentSong = 0
+                                else:
+                                    self.currentSong = self.currentSong + 1
+                                self.changeSong()
+                                good = True
+                            except:
+                                good = False
                     elif self.directoryBlock.directoryButton.obj.collidepoint(self.mouse):
-                        self.songs.chooseDirectory()
-                        self.musicDirectory = self.songs.getDirectory()
-                        self.directoryBlock.mouseDown(self.musicDirectory)
-                        self.currentSong = 0
+                        good = False
+                        while not good:
+                            try:
+                                self.songs.chooseDirectory()
+                                self.musicDirectory = self.songs.getDirectory()
+                                self.directoryBlock.mouseDown(self.musicDirectory)
+                                self.currentSong = 0
 
-                        title = self.songs.getTitle(self.currentSong)
-                        path  = self.songs.getPath(self.currentSong)
-                        print (path, title)
-                        self.informationBlock.setSongTitleAndPath(title, \
+                                title = self.songs.getTitle(self.currentSong)
+                                path  = self.songs.getPath(self.currentSong)
+                                self.informationBlock.setSongTitleAndPath(title, \
                                                                       path)
-                        self.musicPlayer.setSongInformation(self.musicDirectory, \
+                                self.musicPlayer.setSongInformation(self.musicDirectory, \
                                                             path, title)
-                        self.musicPlayer.stop()                        
-                        self.musicPlayer.play()
+                                self.musicPlayer.stop()                        
+                                self.musicPlayer.play()
+                                good = True
+                            except:
+                                good = False
                 elif event.type == pygame.MOUSEBUTTONUP:
                     self.buttonBlock.mouseUp()
                     self.directoryBlock.mouseUp()

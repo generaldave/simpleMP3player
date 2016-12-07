@@ -94,8 +94,8 @@ class SongList:
             self.songCount = self.songCount + 1
             token = tokenizer.getToken()
             index = token.index("/,")
-            name = token[index + 2:]
-            path = token[:index + 1]
+            name  = token[index + 2:]
+            path  = token[:index + 1]
             self.songs.append(Song(name, path))
 
     # Method populates array with song objects from directory

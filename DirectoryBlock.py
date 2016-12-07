@@ -46,7 +46,7 @@ class DirectoryBlock(object):
         self.textColor       = Colour['BLUE']
         self.X               = 67
         self.Y               = 200
-        self.directory       = directory
+        self.directory       = directory.rstrip("/") + "/"
         self.areaCoordinates = (0, 0, 198, 52)
         self.fontSize        = 17
 
@@ -55,9 +55,8 @@ class DirectoryBlock(object):
         self.setupDirectory()
 
     # Method changes directory
-    def setDirectory(self, directory):
-        self.directory = directory
-        self.setupDirectory()
+##    def setDirectory(self, directory):
+##        self.setupDirectory()
 
     # Method sets up rect
     def setupRect(self):
@@ -81,12 +80,13 @@ class DirectoryBlock(object):
     # Method changes image for mouse down
     def mouseDown(self, directory):
         self.image = "/images/directoryDown.png"
-        self.setDirectory(directory)
+        self.directory = directory
+        self.setupDirectory()
 
     # Method changes image for mouse down
     def mouseUp(self):
         self.image = "/images/directory.png"
-        self.setDirectory(self.directory)
+        self.setupDirectory()
 
     # Method updates DirectoryBlock, redraw rec and scroll text
     def update(self):

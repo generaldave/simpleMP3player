@@ -21,10 +21,3 @@ This player will only play .mp3 files. I set it up so that a user can select a d
 
 
 ![screenshot-simple mp3 player](https://cloud.githubusercontent.com/assets/7481680/20872199/a9e0dad8-ba6a-11e6-918e-7d8ff90cb1a1.png)
-
-
-
-
-TODO:
-
-1. Error handling for problem songs/directories
