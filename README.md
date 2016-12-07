@@ -27,5 +27,4 @@ This player will only play .mp3 files. I set it up so that a user can select a d
 
 TODO:
 
-1. Finish modularizing / Cleaning up code.
-2. Work on Functionality. Currently has none.
+1. Error handling for problem songs/directories

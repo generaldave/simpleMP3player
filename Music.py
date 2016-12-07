@@ -27,9 +27,7 @@ import os       # For filesystem path
 class Music(object):
     def __init__(self):
         directory = os.path.dirname(os.path.realpath(__file__)) + "/"
-        path         = "Music/Eminem/"
-        song         = "2 Evil Deeds.mp3"
-        self.song    = directory + path + song
+        self.song    = ""
         self.paused  = False
         self.playing = False
 
@@ -67,6 +65,16 @@ class Music(object):
             position = pygame.mixer.music.get_pos()
             return self.millisecondConverter(position)
         return "00:00"
+
+    # Method sets song and path
+    def setSongInformation(self, directory, path, song):
+        self.directory = directory
+        self.path      = path
+
+        self.song = directory
+        if (len(path) > 1):
+            self.song = self.song + path
+        self.song = self.song + song + ".mp3"
 
     # Method returns whether player is busy or not
     def busy(self):

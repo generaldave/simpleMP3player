@@ -8,6 +8,14 @@
 #                                                                      #
 ########################################################################
 
+########################################################################
+#                                                                      #
+#                          IMPORT STATEMENTS                           #
+#                                                                      #
+########################################################################
+
+from tkinter import *   # Used for directory chooser window
+
 #######################################################################
 #                                                                     #
 #                          COLOUR STRUCTURE                           #
@@ -30,3 +38,30 @@ Seconds = {'ZERO'  : 0, \
            'THREE' : 3, \
            'FOUR'  : 4, \
            'FIVE'  : 5}
+
+#######################################################################
+#                                                                     #
+#                          DIRECTORY CHOOSER                          #
+#                                                                     #
+#######################################################################
+
+def pickDirectory(currentDirectory):
+    # Start a hidden tkinter window
+    root = Tk()
+    root.withdraw()
+
+    # Directory chooser options
+    options = {}
+    options['initialdir'] = currentDirectory
+    options['mustexist']  = False
+    options['parent']     = root
+    options['title']      = "Choose music directory"
+
+    # Choose directory
+    directory = filedialog.askdirectory(**options)
+
+    # Kill tkinter object
+    root.destroy()
+
+    # Return directory
+    return directory

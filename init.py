@@ -15,6 +15,7 @@
 #                                                                      #
 ########################################################################
 
+from   SongList         import *   # SongList Class
 from   Structures       import *   # Colour and Seconds Struct
 from   Button           import *   # Button Class
 from   ScrollingText    import *   # Scrolling Text Class
@@ -23,6 +24,8 @@ from   ButtonBlock      import *   # Buttons Block Class
 from   DirectoryBlock   import *   # Directory Block Class
 from   TimeBlock        import *   # Directory Block Class
 from   Music            import *   # Handles the music
+from   FileHandler      import *   # For config file
+from   StringTokenizer  import *   # String Tokenizer file
 import pygame                      # For GUI
 
 #######################################################################
@@ -32,16 +35,31 @@ import pygame                      # For GUI
 #######################################################################
 
 class SimpleMP3Player(object):
+    currentSong = 0   # Song number
+    
     def __init__(self, directory):
-        self.directory = directory
+        self.directory = directory   # Directory of app
         
         # Initialize pygame
         pygame.init()
         pygame.font.init()
         self.fps = 60
 
+        # Read config file
+        self.configFile()
+
+        # Initialize song list
+        self.songs = SongList(self.musicDirectory)
+        self.musicDirectory = self.songs.getDirectory()
+        
         # Initialize music player
         self.musicPlayer = Music()
+
+        # Set up song information
+        path = self.songs.getPath(self.currentSong)
+        title = self.songs.getTitle(self.currentSong)
+        self.musicPlayer.setSongInformation(self.musicDirectory,
+                                            path, title)
         
         # Call method to set up GUI
         self.setupGUI()
@@ -58,7 +76,7 @@ class SimpleMP3Player(object):
         self.mouse = pygame.mouse.get_pos()   # For mouse position
 
         # App Icon
-        iconFile = self.directory + "/images/icon.gif"
+        iconFile = self.directory + self.iconPath
         self.icon = pygame.image.load(iconFile)
         pygame.display.set_icon(self.icon)
 
@@ -75,8 +93,8 @@ class SimpleMP3Player(object):
 
     # Method sets up Information Block
     def setupInformation(self):
-        Title = "2 Evil Deeds"
-        Path  = "Eminem"
+        Title = self.songs.getTitle(self.currentSong)
+        Path  = self.songs.getPath(self.currentSong)
 
         # Initialize Information Block
         self.informationBlock = InformationBlock(self.screen, Title, \
@@ -84,7 +102,7 @@ class SimpleMP3Player(object):
 
     # Method sets up Directory Block
     def setupDirectory(self):
-        Directory = "Music/"
+        Directory = self.songs.getDirectory()
 
         # Initialize Directory Block
         self.directoryBlock = DirectoryBlock(self.screen, Directory, \
@@ -96,6 +114,15 @@ class SimpleMP3Player(object):
 
         self.timeBlock = TimeBlock(self.screen, Time, self.fps)
 
+    # Method handles a change in song
+    def changeSong(self):
+        title = self.songs.getTitle(self.currentSong)
+        path  = self.songs.getPath(self.currentSong)
+        self.informationBlock.setSongTitleAndPath(title, path)
+        self.musicPlayer.setSongInformation(self.musicDirectory, path, title)
+        self.musicPlayer.stop()
+        self.musicPlayer.play()
+
     # Method runs app
     def runApp(self):
         run = True
@@ -104,10 +131,14 @@ class SimpleMP3Player(object):
             self.mouse = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.saveFiles()
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.buttonBlock.previousButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("previous")
+                        if (self.currentSong != 0):
+                            self.currentSong = self.currentSong - 1
+                            self.changeSong()
                     elif self.buttonBlock.playButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("play")
                         self.musicPlayer.play()
@@ -117,16 +148,29 @@ class SimpleMP3Player(object):
                     elif self.buttonBlock.stopButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("stop")
                         self.musicPlayer.stop()
-                        self.timeBlock.update("00:00")
+                        self.timeBlock.update(self.musicPlayer.getPosition())
                     elif self.buttonBlock.nextButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("next")
-                        title = "Song Two"
-                        path  = "Next/Path"
-                        self.informationBlock.setSongTitleAndPath(title, \
-                                                                  path)
+                        if (self.currentSong == self.songs.getSongCount() - 1):
+                            self.currentSong = 0
+                        else:
+                            self.currentSong = self.currentSong + 1
+                        self.changeSong()
                     elif self.directoryBlock.directoryButton.obj.collidepoint(self.mouse):
-                        directory = "/New/Directory/"
-                        self.directoryBlock.mouseDown(directory)
+                        self.songs.chooseDirectory()
+                        self.musicDirectory = self.songs.getDirectory()
+                        self.directoryBlock.mouseDown(self.musicDirectory)
+                        self.currentSong = 0
+
+                        title = self.songs.getTitle(self.currentSong)
+                        path  = self.songs.getPath(self.currentSong)
+                        print (path, title)
+                        self.informationBlock.setSongTitleAndPath(title, \
+                                                                      path)
+                        self.musicPlayer.setSongInformation(self.musicDirectory, \
+                                                            path, title)
+                        self.musicPlayer.stop()                        
+                        self.musicPlayer.play()
                 elif event.type == pygame.MOUSEBUTTONUP:
                     self.buttonBlock.mouseUp()
                     self.directoryBlock.mouseUp()
@@ -140,3 +184,43 @@ class SimpleMP3Player(object):
             
         # Clean exit
         pygame.quit()
+
+    # Method reads in config file
+    def configFile(self):
+        fileObj = FileHandler("config")
+        configArray = fileObj.read()
+        tokenizer = StringTokenizer('\n')
+        tokenizer.setString(configArray)
+        
+        # Directory
+        token = tokenizer.getToken()
+        index = token.index('=') + 1
+        self.musicDirectory = token[index:]
+
+        # Icon
+        token = tokenizer.getToken()
+        index = token.index('=') + 1
+        self.iconPath = token[index:]
+
+        # LastSong
+        token = tokenizer.getToken()
+        index = token.index('=') + 1
+        self.currentSong = int(token[index:])
+
+    # Method saves config file and song list
+    def saveFiles(self):
+        # Rewrite config file
+        string = "Directory="    + self.musicDirectory + "\n" + \
+                 "Icon="         + self.iconPath       + "\n" + \
+                 "CurrentSong="  + str(self.currentSong)
+        fileObj = FileHandler("config")
+        fileObj.write(string, "")
+
+        # Rewrite songs file
+        fileObj = FileHandler("Songs")
+        string = []
+        for i in range(self.songs.getSongCount()):
+            path = self.songs.getPath(i)
+            title = self.songs.getTitle(i)
+            string.append(path + "," + title)
+        fileObj.write(string, "\n")

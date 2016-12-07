@@ -2,11 +2,12 @@
 #                                                                      #
 # David Fuller                                                         #
 #                                                                      #
-# Driver for a simple MP3 Player                                       #
+# Shuffler Class for a Simple MP3 Player                               #
 #                                                                      #
-# Created on 2016-12-2                                                 #
+# Created on 2016-11-30                                                #
 #                                                                      #
 ########################################################################
+
 
 ########################################################################
 #                                                                      #
@@ -14,31 +15,31 @@
 #                                                                      #
 ########################################################################
 
-from   init import *   # init Class - Initializes GUI
-import logging         # Log any errors
-import os              # For filesystem paths
+import random   # For shuffling array
 
 #######################################################################
 #                                                                     #
-#                                DRIVER                               #
+#                           SHUFFLER CLASS                            #
 #                                                                     #
 #######################################################################
 
-# Initialize app
-def main():
-    player = SimpleMP3Player(directory)
+class Shuffler:
+    def __init__(self, arrayIn):
+        self.array = arrayIn
 
-# Begin app, or log error
-try:
-    # Log file for errors
-    directory = os.path.dirname(os.path.realpath(__file__))
-    logFile = directory + "/logs/error.log"
-    errorFormat = '%(asctime)s - %(levelname)s: %(message)s'
-    dateFormat = '%m/%d/%Y %I:%M:%S %p'
-    logging.basicConfig(filename = logFile, filemode = 'w', \
-                    level = logging.DEBUG,
-                    format = errorFormat, \
-                    datefmt = dateFormat)
-    main()
-except:
-    logging.exception("")
+    # Method returns array
+    def getArray(self):
+        return self.array
+
+    # Method shuffles an array
+    def shuffle(self):
+        # Shuffles array 10 times
+        for i in range(10):
+            max = len(self.array) - 1
+            randMax = len(self.array) - 1
+            for x in range(max):
+                index = random.randrange(randMax)
+                temp = self.array[index]
+                self.array[index] = self.array[randMax]
+                self.array[randMax] = temp
+                randMax = randMax - 1
