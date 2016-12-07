@@ -15,6 +15,7 @@
 ########################################################################
 
 from tkinter import *   # Used for directory chooser window
+from tkinter import filedialog
 
 #######################################################################
 #                                                                     #
