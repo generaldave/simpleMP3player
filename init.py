@@ -88,6 +88,7 @@ class SimpleMP3Player(object):
         self.setupDirectory()
         self.setupTime()
         self.volumeBlock = VolumeBlock(self.screen)
+        self.musicPlayer.setVolume(self.volumeBlock.getVolume())
 
     # Method sets up buttons
     def setupButtons(self):

@@ -4,7 +4,7 @@
 #                                                                      #
 # VolumeBlock for a Simple MP3 Player                                  #
 #                                                                      #
-# Created on 2016-12-11                                                 #
+# Created on 2016-12-11                                                #
 #                                                                      #
 ########################################################################
 
@@ -48,7 +48,7 @@ class VolumeBlock(object):
 
     # Method returns volume %
     def getVolume(self):
-        return (self.slider.getPercent() / 100.0 / 7)
+        return (self.slider.getPercent() / 100.0 / 6)
 
     # Method determines whether or not to draw volume indicator
     def setDrawPercent(self, value):

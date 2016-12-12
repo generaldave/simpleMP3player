@@ -1,11 +1,36 @@
-import pygame
-import math
-from Structures import *
+########################################################################
+#                                                                      #
+# David Fuller                                                         #
+#                                                                      #
+# VolumeBlock for a Simple MP3 Player                                  #
+#                                                                      #
+# Created on 2016-12-11                                                #
+#                                                                      #
+########################################################################
+
+
+########################################################################
+#                                                                      #
+#                          IMPORT STATEMENTS                           #
+#                                                                      #
+########################################################################
+
+from   Structures import *   # Structures file
+import pygame                # For GUI
+import math                  # For comparing mouse location
+
+#######################################################################
+#                                                                     #
+#                             SLIDER CLASS                            #
+#                                                                     #
+#######################################################################
 
 class Slider(object):
     def __init__(self, screen, x, y, width, position, \
                  color, lowcolor, highcolor):
-        self.screen            = screen
+        self.screen            = screen   # Screen
+
+        # Slider information
         self.x                 = x
         self.y                 = y
         self.width             = width
@@ -18,12 +43,15 @@ class Slider(object):
         
         self.font = pygame.font.SysFont("Helvetica", 14)
 
+    # Return slider percent
     def getPercent(self):
         return self.percent
 
+    # Decide whether or not to draw percent
     def setDrawPercent(self, value):
         self.drawPercent = value
 
+    # Draw bar before slider
     def drawLowBar(self):
         if (self.currentPosition == self.width + self.x):
             coords = (self.x, self.y, self.currentPosition - self.x, 5)
@@ -34,6 +62,7 @@ class Slider(object):
                                         self.lowBarColor, \
                                         coords)
 
+    # Draw bar after slider
     def drawHighBar(self):
         if (self.currentPosition < self.width + self.x):
             coords = (self.currentPosition , self.y, \
@@ -42,6 +71,7 @@ class Slider(object):
                                             self.highBarColor, \
                                             coords)
 
+    # Determine coordinates of percentage indicator
     def indicatorPosition(self):
         position = 0
         if (self.percent <= 9):
@@ -52,6 +82,7 @@ class Slider(object):
             position = (self.currentPosition - 12, self.y - 20)
         return position
 
+    # Draw slider
     def drawSlider(self):
         coords = (self.currentPosition, self.y + 3)
         self.sliderCircle = pygame.draw.circle(self.screen, \
@@ -65,105 +96,26 @@ class Slider(object):
             self.screen.blit(self.sliderPercent, self.indicatorPosition())
                                                 
 
+    # Change percent and position of slider
     def changeSlider(self, position):
         self.currentPosition = position
         self.percent = int((position - self.x) / self.width*100)
 
+    # Decide whether or not mouse is in boundaries of slider
     def isInBounds(self, mouseX, mouseY):
         if math.hypot(self.currentPosition - mouseX, \
                       self.y + 3 - mouseY) <= 8:
             return self
         return None
 
+    # Decide whether or not slider is in a valid position
     def isValid(self, mouseX):
         if (mouseX < self.x or mouseX > self.width + self.x):
             return False
         return True
 
+    # Update slider
     def update(self):
         self.drawLowBar()
         self.drawHighBar()
         self.drawSlider()
-
-def main():
-    pygame.init()
-    pygame.font.init()
-
-    # Screen attributes
-    screen = pygame.display.set_mode((280,46))
-    pygame.display.set_caption("Slider Class")
-    clock = pygame.time.Clock()      # For frames per second
-    mouse = pygame.mouse.get_pos()   # For mouse position
-
-    # Slider attributes
-    x            = 20
-    y            = 20
-    width        = 240
-    position     = 50   # Percentage
-    sliderColor  = Colour['BLUE']
-    lowBarColor  = Colour['LIGHTBLUE']
-    highBarColor = Colour['LIGHTGRAY']
-
-    # Initialize Slider
-    slider = Slider(screen, x, y, width, position, \
-                    sliderColor, lowBarColor, highBarColor)
-
-    # Run app
-    run = True
-    sliderSelected = None
-    sliderHovered  = False
-    mouseDown      = False
-    while run:
-        screen.fill(Colour['BLACK'])
-        mouse = pygame.mouse.get_pos()
-        for event in pygame.event.get():
-            # Handle Quit event
-            if event.type == pygame.QUIT:
-                run = False
-                break
-
-            # Handle Mouse Down event
-            elif event.type == pygame.MOUSEBUTTONDOWN:                
-                sliderSelected = slider.isInBounds(mouse[X], mouse[Y])
-                if sliderSelected:
-                    mouseDown = True
-                    slider.setDrawPercent(True)
-
-            # Handle Mouse Up event
-            elif event.type == pygame.MOUSEBUTTONUP:
-                mouseDown      = False
-                sliderSelected = None
-
-            # Handle Mouse Hover event
-            elif slider.isInBounds(mouse[X], mouse[Y]):
-                sliderHovered = True
-                slider.setDrawPercent(True)
-
-            # Handle Mouse not Hover event
-            elif not slider.isInBounds(mouse[X], mouse[Y]):
-                sliderHovered = False
-
-        # If slider is not hovered or selected, don't show percent
-        if (not mouseDown and not sliderHovered and not sliderSelected):
-            slider.setDrawPercent(False)
-
-        # If slider is selected, allow mouse to move slider
-        if sliderSelected:
-            if (slider.isValid(mouse[X])):
-                slider.changeSlider(mouse[X])
-
-        #### GRAY RECTANGLE ####
-##        coords = (10, 10, 285, 26)
-##        pygame.draw.rect(screen, Colour['GRAY'], coords)
-        #### GRAY RECTANGLE ####
-        
-        slider.update()
-        pygame.display.update()
-        clock.tick(60)
-
-    # Quit app
-    pygame.quit()
-
-# Begin app
-if __name__ == '__main__':
-    main()
