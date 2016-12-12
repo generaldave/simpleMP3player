@@ -92,7 +92,7 @@ class Slider(object):
         if (self.drawPercent):
             self.sliderPercent = self.font.render(str(self.percent), \
                                                 True, \
-                                                Colour['LIGHTBLUE'])
+                                                Colour['BLUE'])
             self.screen.blit(self.sliderPercent, self.indicatorPosition())
                                                 
 
