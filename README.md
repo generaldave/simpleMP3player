@@ -20,4 +20,4 @@ This player will only play .mp3 files. I set it up so that a user can select a d
 
 
 
-![screenshot-simple mp3 player](https://cloud.githubusercontent.com/assets/7481680/20872199/a9e0dad8-ba6a-11e6-918e-7d8ff90cb1a1.png)
+![addedvolume](https://cloud.githubusercontent.com/assets/7481680/21088072/f95bbb2a-bff9-11e6-997a-88e46cabdee1.png)
