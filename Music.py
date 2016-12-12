@@ -57,7 +57,7 @@ class Music(object):
 
     # Method sets volume
     def setVolume(self, value):
-        pygame.mixer.set_volume(value)
+        pygame.mixer.music.set_volume(value)
 
     # Methd returns position in song. If none playing, returns 00:00
     def getPosition(self):

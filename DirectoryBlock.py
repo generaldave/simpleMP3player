@@ -39,13 +39,13 @@ class DirectoryBlock(object):
         self.image  = "/images/directory.png"
         
         # Rect information
-        self.rectCoordinates = (10, 182, 260, 52)
+        self.rectCoordinates = (10, 215, 260, 52)
         self.rectColor       = Colour['GRAY']
 
         # Directory information
         self.textColor       = Colour['BLUE']
         self.X               = 67
-        self.Y               = 200
+        self.Y               = 232
         self.directory       = directory.rstrip("/") + "/"
         self.areaCoordinates = (0, 0, 198, 52)
         self.fontSize        = 17
@@ -53,10 +53,6 @@ class DirectoryBlock(object):
         # Setup DirectoryBlock
         self.setupRect()
         self.setupDirectory()
-
-    # Method changes directory
-##    def setDirectory(self, directory):
-##        self.setupDirectory()
 
     # Method sets up rect
     def setupRect(self):
@@ -69,7 +65,7 @@ class DirectoryBlock(object):
         imagePath = self.path + self.image
         self.directoryButton = Button(self.screen, 'directory', imagePath)
         self.directoryButton.draw(self.mouse, \
-                                 (10,182,52,52), (11,183))
+                                 (10,215,52,52), (11,216))
         
         self.directoryText = ScrollingText(self.screen, self.directory,   \
                                            self.fontSize, self.X, self.Y, \
@@ -93,4 +89,4 @@ class DirectoryBlock(object):
         self.setupRect()
         self.directoryText.update()
         self.directoryButton.draw(self.mouse, \
-                                 (10,182,52,52), (11,183))
+                                 (10,215,52,52), (11,216))

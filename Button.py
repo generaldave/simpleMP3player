@@ -33,19 +33,13 @@ class Button:
         self.image        = pygame.image.load(img)
         self.defaultImage = img
 
-    # Decide what color the background of the button is accoring
-    # to whether the mouse is hovering or not
-    def color(self):
-        if self.is_hover:
-            return Colour['GRAY']
-        else:
-            return Colour['GRAY']
+        self.color = Colour['GRAY']
 
     # Draws button
     # rectcoord: x, y, width, height
     # imagecoord: x, y
     def draw(self, mouse, rectcoord, imagecoord):
-        self.obj  = pygame.draw.rect(self.screen, self.color(), rectcoord)
+        self.obj  = pygame.draw.rect(self.screen, self.color, rectcoord)
         self.screen.blit(self.image, imagecoord)
       
         # Change color if mouse over button
@@ -57,10 +51,6 @@ class Button:
             self.is_hover = True
         else:
             self.is_hover = False
-
-    # Method sets image
-##    def setImage(self, imagePath):
-##        self.image = pygame.image.load(imagePath)
 
     # Method sets default image
     def setDefaultImage(self):

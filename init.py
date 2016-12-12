@@ -23,6 +23,7 @@ from   InformationBlock import *   # Information Block Class
 from   ButtonBlock      import *   # Buttons Block Class
 from   DirectoryBlock   import *   # Directory Block Class
 from   TimeBlock        import *   # Directory Block Class
+from   VolumeBlock      import *   # Volume Block Class
 from   Music            import *   # Handles the music
 from   FileHandler      import *   # For config file
 from   StringTokenizer  import *   # String Tokenizer file
@@ -51,7 +52,8 @@ class SimpleMP3Player(object):
         # Initialize song list
         self.songs = SongList(self.musicDirectory)
         self.musicDirectory = self.songs.getDirectory()
-        self.musicDirectory = self.musicDirectory.rstrip("/") + "/"        
+        self.musicDirectory = self.musicDirectory.rstrip("/") + "/"
+        
         # Initialize music player
         self.musicPlayer = Music()
 
@@ -70,7 +72,7 @@ class SimpleMP3Player(object):
     # Method sets up GUI
     def setupGUI(self):
         # Screen attributes
-        self.screen = pygame.display.set_mode((280,244))
+        self.screen = pygame.display.set_mode((280,277))
         pygame.display.set_caption("Simple MP3 Player")
         self.clock = pygame.time.Clock()      # For frames per second
         self.mouse = pygame.mouse.get_pos()   # For mouse position
@@ -85,6 +87,7 @@ class SimpleMP3Player(object):
         self.setupInformation()
         self.setupDirectory()
         self.setupTime()
+        self.volumeBlock = VolumeBlock(self.screen)
 
     # Method sets up buttons
     def setupButtons(self):
@@ -125,15 +128,29 @@ class SimpleMP3Player(object):
 
     # Method runs app
     def runApp(self):
-        run = True
+        run            = True
+        sliderSelected = None
+        sliderHovered  = False
+        mouseDown      = False
         while run == True:
             self.screen.fill(Colour['BLACK'])
             self.mouse = pygame.mouse.get_pos()
             for event in pygame.event.get():
+
+                # Handle Quit event
                 if event.type == pygame.QUIT:
                     self.saveFiles()
                     run = False
+
+                # Handle mouse down events
                 elif event.type == pygame.MOUSEBUTTONDOWN:
+                    # Handles volume slider
+                    sliderSelected = self.volumeBlock.isInBounds(self.mouse[X], self.mouse[Y])
+                    if sliderSelected:
+                        mouseDown = True
+                        self.volumeBlock.setDrawPercent(True)
+
+                    # Handles Previous button
                     if self.buttonBlock.previousButton.obj.collidepoint(self.mouse):
                         good = False
                         while not good:
@@ -145,17 +162,24 @@ class SimpleMP3Player(object):
                                 good = True
                             except:
                                 good = False
-                                
+
+                    # Handles Play button
                     elif self.buttonBlock.playButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("play")
                         self.musicPlayer.play()
+
+                    # handles Pause button
                     elif self.buttonBlock.pauseButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("pause")
                         self.musicPlayer.pause()
+
+                    # Handles Stop button
                     elif self.buttonBlock.stopButton.obj.collidepoint(self.mouse):
                         self.buttonBlock.mouseDown("stop")
                         self.musicPlayer.stop()
                         self.timeBlock.update(self.musicPlayer.getPosition())
+                        
+                    # Handles Next button
                     elif self.buttonBlock.nextButton.obj.collidepoint(self.mouse):
                         good = False
                         while not good:
@@ -169,6 +193,8 @@ class SimpleMP3Player(object):
                                 good = True
                             except:
                                 good = False
+                                
+                    # Handles changing directory
                     elif self.directoryBlock.directoryButton.obj.collidepoint(self.mouse):
                         good = False
                         while not good:
@@ -189,10 +215,37 @@ class SimpleMP3Player(object):
                                 good = True
                             except:
                                 good = False
+
+                # Handle mouse up events
                 elif event.type == pygame.MOUSEBUTTONUP:
+                    # Handles volume slider
+                    mouseDown      = False
+                    sliderSelected = None
+
+                    # Handles mouse up on buttons
                     self.buttonBlock.mouseUp()
                     self.directoryBlock.mouseUp()
-            
+
+                # Handle Mouse Hover event for volume slider
+                elif self.volumeBlock.isInBounds(self.mouse[X], self.mouse[Y]):
+                    sliderHovered = True
+                    self.volumeBlock.setDrawPercent(True)
+
+                # Handle Mouse not Hover event for volume slider
+                elif not self.volumeBlock.isInBounds(self.mouse[X], self.mouse[Y]):
+                    sliderHovered = False
+
+            # If slider is not hovered or selected, don't show percent
+            if (not mouseDown and not sliderHovered and not sliderSelected):
+                self.volumeBlock.setDrawPercent(False)
+
+            # If slider is selected, allow mouse to move slider
+            if sliderSelected:
+                if (self.volumeBlock.isValid(self.mouse[X])):
+                    self.volumeBlock.changeSlider(self.mouse[X])
+                    self.musicPlayer.setVolume(self.volumeBlock.getVolume())
+
+            self.volumeBlock.update()
             self.informationBlock.update()
             self.directoryBlock.update()
             self.timeBlock.update(self.musicPlayer.getPosition())

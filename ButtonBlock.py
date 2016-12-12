@@ -34,32 +34,32 @@ class ButtonBlock(object):
         self.mouse    = mouse    # For mouse position
 
         # Previous button information
-        self.previousRectCoord = (10,100,52,52)
-        self.previousCoord     = (11,101)
+        self.previousRectCoord = (10,143,52,52)
+        self.previousCoord     = (11,144)
         self.previousUp        = "/images/previous.png"
         self.previousDown      = "/images/previousDown.png"
 
         # Play button information
-        self.playRectCoord = (62,100,52,52)
-        self.playCoord     = (63,101)
+        self.playRectCoord = (62,143,52,52)
+        self.playCoord     = (63,144)
         self.playUp        = "/images/play.png"
         self.playDown      = "/images/playDown.png"
 
         # Pause button information
-        self.pauseRectCoord = (114,100,52,52)
-        self.pauseCoord     = (115,101)
+        self.pauseRectCoord = (114,143,52,52)
+        self.pauseCoord     = (115,144)
         self.pauseUp        = "/images/pause.png"
         self.pauseDown      = "/images/pauseDown.png"
 
         # Stop button information
-        self.stopRectCoord = (166,100,52,52)
-        self.stopCoord     = (167,101)
+        self.stopRectCoord = (166,143,52,52)
+        self.stopCoord     = (167,144)
         self.stopUp        = "/images/stop.png"
         self.stopDown      = "/images/stopDown.png"
 
         # Next button information
-        self.nextRectCoord = (218,100,52,52)
-        self.nextCoord     = (219,101)
+        self.nextRectCoord = (218,143,52,52)
+        self.nextCoord     = (219,144)
         self.nextUp        = "/images/next.png"
         self.nextDown      = "/images/nextDown.png"
 
