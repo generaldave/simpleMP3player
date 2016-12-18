@@ -33,5 +33,4 @@ Website can be found here: https://www.pathofexile.com/
 
 TODO:
 - Make themed buttons
-- Make themed icon
 - Make songs play continuously 
