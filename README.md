@@ -27,3 +27,11 @@ Website can be found here: https://www.pathofexile.com/
 
 
 ![screenshot](https://cloud.githubusercontent.com/assets/7481680/21291545/9b641ffa-c4b1-11e6-9839-45c6e0b5d518.png)
+
+
+
+
+TODO:
+- Make themed buttons
+- Make themed icon
+- Make songs play continuously
