@@ -19,11 +19,11 @@ from   Structures import *   # Structures file
 import pygame                # For GUI
 import math                  # For comparing mouse location
 
-#######################################################################
-#                                                                     #
-#                             SLIDER CLASS                            #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                             SLIDER CLASS                             #
+#                                                                      #
+########################################################################
 
 class Slider(object):
     def __init__(self, screen, x, y, width, position, \
@@ -92,7 +92,7 @@ class Slider(object):
         if (self.drawPercent):
             self.sliderPercent = self.font.render(str(self.percent), \
                                                 True, \
-                                                Colour['BLUE'])
+                                                Colour['COPPER'])
             self.screen.blit(self.sliderPercent, self.indicatorPosition())
                                                 
 

@@ -17,13 +17,15 @@
 
 import random   # For shuffling array
 
-#######################################################################
-#                                                                     #
-#                           SHUFFLER CLASS                            #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                           SHUFFLER CLASS                             #
+#                                                                      #
+########################################################################
 
 class Shuffler:
+    TIMES_TO_SHUFFLE = 10
+    
     def __init__(self, arrayIn):
         self.array = arrayIn
 
@@ -34,7 +36,7 @@ class Shuffler:
     # Method shuffles an array
     def shuffle(self):
         # Shuffles array 10 times
-        for i in range(10):
+        for i in range(self.TIMES_TO_SHUFFLE):
             max = len(self.array) - 1
             randMax = len(self.array) - 1
             for x in range(max):

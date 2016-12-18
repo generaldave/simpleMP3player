@@ -15,21 +15,26 @@
 #                                                                      #
 ########################################################################
 
-import pygame   # For GUI
-import os       # For filesystem path
+from   Structures import *   # Structures file
+import pygame                # For GUI
+import os                    # For filesystem path
 
-#######################################################################
-#                                                                     #
-#                             MUSIC CLASS                             #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                             MUSIC CLASS                              #
+#                                                                      #
+########################################################################
 
 class Music(object):
-    def __init__(self):
-        directory = os.path.dirname(os.path.realpath(__file__)) + "/"
-        self.song    = ""
-        self.paused  = False
-        self.playing = False
+    def __init__(self, musicDirectory):
+        self.musicDirectory = musicDirectory
+        self.song           = ""
+        self.paused         = False
+        self.playing        = False
+
+    # Method sets musicDirectory
+    def setMusicDirectory(self, musicDirectory):
+        self.musicDirectory = musicDirectory
 
     # Method plays / unpauses a song accodringly
     def play(self):
@@ -67,14 +72,11 @@ class Music(object):
         return "00:00"
 
     # Method sets song and path
-    def setSongInformation(self, directory, path, song):
-        self.directory = directory
-        self.path      = path
-
-        self.song = directory
+    def setSongInformation(self, path, song):
+        self.song = self.musicDirectory
         if (len(path) > 1):
             self.song = self.song + path
-        self.song = self.song + song + ".mp3"
+        self.song = self.song + song + MP3
 
     # Method returns whether player is busy or not
     def busy(self):
@@ -91,7 +93,6 @@ class Music(object):
         if (len(seconds) < 2):
             seconds = "0" + seconds
 
-        return minutes + ":" + seconds
-            
+        return minutes + ":" + seconds  
 
         

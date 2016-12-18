@@ -19,28 +19,33 @@ from   Structures import *   # Colour and Seconds Struct
 from   Slider     import *   # Slider Class
 import pygame                # For GUI
 
-#######################################################################
-#                                                                     #
-#                          VOLUME BLOCK CLASS                         #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                          VOLUME BLOCK CLASS                          #
+#                                                                      #
+########################################################################
 
 class VolumeBlock(object):
-    def __init__(self, screen):
-        self.screen = screen   # Screen
+    def __init__(self, screen, directory):
+        self.screen    = screen      # Screen
+        self.directory = directory   # Directory of app
 
         # Slider attributes
-        x            = 25
-        y            = 119
-        width        = 230
+        x            = 55
+        y            = 116
+        width        = 150
         position     = 50   # Percentage
-        sliderColor  = Colour['BLUE']
-        lowBarColor  = Colour['LIGHTBLUE']
-        highBarColor = Colour['LIGHTGRAY']
+        sliderColor  = Colour['COPPER']
+        lowBarColor  = Colour['DARKCOPPER']
+        highBarColor = Colour['GRAY']
 
         # Rect information
-        self.rectCoordinates = (10, 100, 260, 33)
-        self.rectColor       = Colour['GRAY']
+        self.rectCoordinates = (20, 97, 260, 33)
+        self.rectColor       = Colour['DARKGRAY']
+
+        # Initialize speaker image
+        self.speaker = pygame.image.load(self.directory + \
+                                         "/images/speaker.png")
 
         # Initialize Slider
         self.slider = Slider(screen, x, y, width, position, \
@@ -48,7 +53,7 @@ class VolumeBlock(object):
 
     # Method returns volume %
     def getVolume(self):
-        return (self.slider.getPercent() / 100.0 / 6)
+        return (self.slider.getPercent() / 100.0 / 4)
 
     # Method determines whether or not to draw volume indicator
     def setDrawPercent(self, value):
@@ -69,4 +74,5 @@ class VolumeBlock(object):
     # Method updates volumeblock
     def update(self):
         pygame.draw.rect(self.screen, self.rectColor, self.rectCoordinates)
+        self.screen.blit(self.speaker, (25, 107))
         self.slider.update()

@@ -18,14 +18,14 @@
 from   Structures import *   # Colour Struct
 import pygame                # For GUI
 
-#######################################################################
-#                                                                     #
-#                            BUTTON CLASS                             #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                            BUTTON CLASS                              #
+#                                                                      #
+########################################################################
 
 class Button:
-    def __init__(self, screen, text, img):
+    def __init__(self, screen, text, img, color):
         self.screen       = screen
         self.text         = text
         self.is_hover     = False
@@ -33,7 +33,7 @@ class Button:
         self.image        = pygame.image.load(img)
         self.defaultImage = img
 
-        self.color = Colour['GRAY']
+        self.color = color
 
     # Draws button
     # rectcoord: x, y, width, height

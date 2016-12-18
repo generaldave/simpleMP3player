@@ -17,49 +17,46 @@
 
 from   Button import *   # Button Class
 import pygame            # For GUI
-import os                # For filesystem paths
 
-#######################################################################
-#                                                                     #
-#                        DIRECTORY BLOCK CLASS                        #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                        DIRECTORY BLOCK CLASS                         #
+#                                                                      #
+########################################################################
 
 class ButtonBlock(object):
-    # File's directory
-    path = os.path.dirname(os.path.realpath(__file__))
-    
     def __init__(self, screen, directory, mouse):
-        self.screen   = screen   # Screen
-        self.mouse    = mouse    # For mouse position
+        self.screen    = screen      # Screen
+        self.directory = directory   # Directory of app
+        self.mouse     = mouse       # For mouse position
 
         # Previous button information
-        self.previousRectCoord = (10,143,52,52)
-        self.previousCoord     = (11,144)
+        self.previousRectCoord = (20,132,52,52)
+        self.previousCoord     = (21,133)
         self.previousUp        = "/images/previous.png"
         self.previousDown      = "/images/previousDown.png"
 
         # Play button information
-        self.playRectCoord = (62,143,52,52)
-        self.playCoord     = (63,144)
+        self.playRectCoord = (72,132,52,52)
+        self.playCoord     = (73,133)
         self.playUp        = "/images/play.png"
         self.playDown      = "/images/playDown.png"
 
         # Pause button information
-        self.pauseRectCoord = (114,143,52,52)
-        self.pauseCoord     = (115,144)
+        self.pauseRectCoord = (124,132,52,52)
+        self.pauseCoord     = (125,133)
         self.pauseUp        = "/images/pause.png"
         self.pauseDown      = "/images/pauseDown.png"
 
         # Stop button information
-        self.stopRectCoord = (166,143,52,52)
-        self.stopCoord     = (167,144)
+        self.stopRectCoord = (176,132,52,52)
+        self.stopCoord     = (177,133)
         self.stopUp        = "/images/stop.png"
         self.stopDown      = "/images/stopDown.png"
 
         # Next button information
-        self.nextRectCoord = (218,143,52,52)
-        self.nextCoord     = (219,144)
+        self.nextRectCoord = (228,132,52,52)
+        self.nextCoord     = (229,133)
         self.nextUp        = "/images/next.png"
         self.nextDown      = "/images/nextDown.png"
 
@@ -90,20 +87,25 @@ class ButtonBlock(object):
     def setupButtons(self):
         # Initialize buttons
         self.previousButton = Button(self.screen, 'next', \
-                                     self.path + \
-                                     self.previousImage)
+                                     self.directory + \
+                                     self.previousImage, \
+                                     Colour['GRAY'])
         self.playButton     = Button(self.screen, 'next', \
-                                     self.path + \
-                                     self.playImage)
+                                     self.directory + \
+                                     self.playImage, \
+                                     Colour['GRAY'])
         self.pauseButton    = Button(self.screen, 'next', \
-                                     self.path + \
-                                     self.pauseImage)
+                                     self.directory + \
+                                     self.pauseImage, \
+                                     Colour['GRAY'])
         self.stopButton     = Button(self.screen, 'next', \
-                                     self.path + \
-                                     self.stopImage)
+                                     self.directory + \
+                                     self.stopImage, \
+                                     Colour['GRAY'])
         self.nextButton     = Button(self.screen, 'next', \
-                                     self.path + \
-                                     self.nextImage)
+                                     self.directory + \
+                                     self.nextImage, \
+                                     Colour['GRAY'])
 
         # Draw Buttons
         self.drawButtons()

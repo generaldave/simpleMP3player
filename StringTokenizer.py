@@ -1,8 +1,19 @@
-# David Fuller
-#
-# 7-27-2016
+########################################################################
+#                                                                      #
+# David Fuller                                                         #
+#                                                                      #
+# StringTokenizer Class for a Simple MP3 Player                        #
+#                                                                      #
+# Created on 2016-7-27                                                 #
+#                                                                      #
+########################################################################
 
-# Define a string tokenizer class
+########################################################################
+#                                                                      #
+#                        SRINGTOKENIZER CLASS                          #
+#                                                                      #
+########################################################################
+
 class StringTokenizer(object):
     # Constructor
     def __init__(self, delimiter):

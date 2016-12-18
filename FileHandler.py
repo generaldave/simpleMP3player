@@ -8,14 +8,13 @@
 #                                                                      #
 ########################################################################
 
-
 ########################################################################
 #                                                                      #
 #                          IMPORT STATEMENTS                           #
 #                                                                      #
 ########################################################################
 
-import os   # File handling
+from   Structures       import *   # Structures File
 
 ########################################################################
 #                                                                      #
@@ -24,9 +23,9 @@ import os   # File handling
 ########################################################################
 
 class FileHandler(object):
-    def __init__(self, filename):
-        directory = os.path.dirname(os.path.realpath(__file__))
-        self.filename = directory + "/" + filename
+    def __init__(self, directory, filename):
+        # SLASH = "/"
+        self.filename = directory + SLASH + filename
 
     # Method overwrites file with given tokens
     def write(self, tokens, delimiter):

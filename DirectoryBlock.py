@@ -19,34 +19,32 @@ from   Structures    import *   # Colour and Seconds Struct
 from   Button        import *   # Button Class
 from   ScrollingText import *   # ScrollingText Class
 import pygame                   # For GUI
-import os                       # For filesystem paths
 
-#######################################################################
-#                                                                     #
-#                        DIRECTORY BLOCK CLASS                        #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                        DIRECTORY BLOCK CLASS                         #
+#                                                                      #
+########################################################################
 
 class DirectoryBlock(object):
-    # File's directory
-    path = os.path.dirname(os.path.realpath(__file__))
-    
-    def __init__(self, screen, directory, fps, mouse):
-        self.screen = screen    # Screen
-        self.fps    = fps       # Frames per second
-        self.mouse  = mouse     # For mouse position
-        self.timer  = Seconds['THREE']
-        self.image  = "/images/directory.png"
+    def __init__(self, screen, directory, musicDirectory, fps, mouse):
+        self.screen         = screen           # Screen
+        self.directory      = directory        # Directory of app
+        self.musicDirectory = musicDirectory   # Music directory
+        self.fps            = fps              # Frames per second
+        self.mouse          = mouse            # For mouse position
+        self.timer          = Seconds['THREE']
+        self.image          = "/images/directory.png"
         
         # Rect information
-        self.rectCoordinates = (10, 215, 260, 52)
+        self.rectCoordinates = (20, 290, 260, 52)
         self.rectColor       = Colour['GRAY']
 
         # Directory information
-        self.textColor       = Colour['BLUE']
-        self.X               = 67
-        self.Y               = 232
-        self.directory       = directory.rstrip("/") + "/"
+        self.textColor       = Colour['COPPER']
+        self.X               = 77
+        self.Y               = 307
+        self.musicDirectory  = musicDirectory.rstrip(SLASH) + SLASH
         self.areaCoordinates = (0, 0, 198, 52)
         self.fontSize        = 17
 
@@ -62,21 +60,24 @@ class DirectoryBlock(object):
 
     # Method sets up directory
     def setupDirectory(self):
-        imagePath = self.path + self.image
-        self.directoryButton = Button(self.screen, 'directory', imagePath)
+        imagePath = self.directory + self.image
+        self.directoryButton = Button(self.screen, 'directory', imagePath, \
+                                      Colour['GRAY'])
         self.directoryButton.draw(self.mouse, \
-                                 (10,215,52,52), (11,216))
+                                 (20,290,52,52), (21,291))
         
-        self.directoryText = ScrollingText(self.screen, self.directory,   \
-                                           self.fontSize, self.X, self.Y, \
-                                           self.areaCoordinates,          \
-                                           self.fps, self.textColor,      \
+        self.directoryText = ScrollingText(self.screen,                \
+                                           self.musicDirectory,        \
+                                           self.fontSize,              \
+                                           self.X, self.Y,             \
+                                           self.areaCoordinates,       \
+                                           self.fps, self.textColor,   \
                                            self.timer)
 
     # Method changes image for mouse down
     def mouseDown(self, directory):
         self.image = "/images/directoryDown.png"
-        self.directory = directory
+        self.musicDirectory = directory
         self.setupDirectory()
 
     # Method changes image for mouse down
@@ -89,4 +90,4 @@ class DirectoryBlock(object):
         self.setupRect()
         self.directoryText.update()
         self.directoryButton.draw(self.mouse, \
-                                 (10,215,52,52), (11,216))
+                                 (20,290,52,52), (21,291))

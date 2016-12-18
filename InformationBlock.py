@@ -19,11 +19,11 @@ from   Structures    import *   # Colour and Seconds Struct
 from   ScrollingText import *   # ScrollingText Class
 import pygame                   # For GUI
 
-#######################################################################
-#                                                                     #
-#                       INFORMATON BLOCK CLASS                        #
-#                                                                     #
-#######################################################################
+########################################################################
+#                                                                      #
+#                       INFORMATON BLOCK CLASS                         #
+#                                                                      #
+########################################################################
 
 class InformationBlock(object):
     def __init__(self, screen, title, path, fps):
@@ -32,20 +32,20 @@ class InformationBlock(object):
         self.timer  = Seconds['THREE']
 
         # Rect information
-        self.rectCoordinates = (10, 10, 260, 80)
+        self.rectCoordinates = (20, 15, 260, 80)
         self.rectColor       = Colour['GRAY']
 
         # Song information
-        self.textColor            = Colour['BLUE']
-        self.X                    = 15
+        self.textColor            = Colour['COPPER']
+        self.X                    = 25
         self.title                = title
-        self.titleAreaCoordinates = (0, 0, 175, 80)
+        self.titleAreaCoordinates = (0, 0, 250, 80)
         self.titleFontSize        = 24
-        self.titleY               = 18
+        self.titleY               = 23
         self.path                 = path
         self.pathAreaCoordinates  = (0, 0, 250, 80)
         self.pathFontSize         = 17
-        self.pathY                = 55
+        self.pathY                = 60
 
         # Setup objects
         self.setupRect()
@@ -62,7 +62,7 @@ class InformationBlock(object):
     # Method sets up rect
     def setupRect(self):
         self.informationRect = pygame.draw.rect(self.screen,        \
-                                                self.rectColor,     \
+                                                self.rectColor,      \
                                                 self.rectCoordinates)
 
     # Method sets up song title
