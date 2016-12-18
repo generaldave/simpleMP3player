@@ -20,4 +20,10 @@ This player will only play .mp3 files. I set it up so that a user can select a d
 
 
 
-![addedvolume](https://cloud.githubusercontent.com/assets/7481680/21088072/f95bbb2a-bff9-11e6-997a-88e46cabdee1.png)
+This mp3 player is now Path of Exile themed.
+Website can be found here: https://www.pathofexile.com/
+
+
+
+
+![screenshot](https://cloud.githubusercontent.com/assets/7481680/21291545/9b641ffa-c4b1-11e6-9839-45c6e0b5d518.png)
