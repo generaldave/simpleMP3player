@@ -31,6 +31,7 @@ class Music(object):
         self.song           = ""
         self.paused         = False
         self.playing        = False
+        pygame.mixer.music.set_endevent(SONGEND)
 
     # Method sets musicDirectory
     def setMusicDirectory(self, musicDirectory):
@@ -59,6 +60,13 @@ class Music(object):
     def stop(self):
         self.playing = False
         pygame.mixer.music.stop()
+
+    # Method returns whether or not at end of song
+    def atEnd(self):
+        endOfSong = pygame.event.get(SONGEND)
+        if (endOfSong):
+            return True
+        return False
 
     # Method sets volume
     def setVolume(self, value):

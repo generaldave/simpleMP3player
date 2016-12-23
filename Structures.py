@@ -28,6 +28,7 @@ RESOLUTION = (301,423)        # App resolution = w x h
 NEWLINE    = "\n"             # New line character
 MP3        = ".mp3"           # Supported music file extension
 SLASH      = "/"              # Used for directories
+SONGEND    = 444              # End of song
 X          = 0                # X coordinate for mouse
 Y          = 1                # Y coordinate for mouse
 

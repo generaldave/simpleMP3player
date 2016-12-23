@@ -253,6 +253,7 @@ class SimpleMP3Player(object):
                     self.volumeBlock.changeSlider(self.mouse[X])
                     self.musicPlayer.setVolume(self.volumeBlock.getVolume())
 
+            # Updates all information and buttons
             self.screen.blit(self.background, (-360, 0))
             self.screen.blit(self.header, (1, 7))
             self.screen.blit(self.footer, (0, 312))
@@ -265,6 +266,20 @@ class SimpleMP3Player(object):
             self.screen.blit(self.border, (20,15))
             pygame.display.update()
             self.clock.tick(self.fps)
+
+            # Block to loop music
+            if (self.musicPlayer.atEnd()):
+                good = False
+                while not good:
+                    try:
+                        if (self.currentSong == self.songs.getSongCount() - 1):
+                            self.currentSong = 0
+                        else:
+                            self.currentSong = self.currentSong + 1
+                        self.changeSong()
+                        good = True
+                    except:
+                        good = False
             
         # Clean exit
         pygame.quit()
