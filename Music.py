@@ -101,6 +101,6 @@ class Music(object):
         if (len(seconds) < 2):
             seconds = "0" + seconds
 
-        return minutes + ":" + seconds  
+        return minutes + ":" + seconds
 
         

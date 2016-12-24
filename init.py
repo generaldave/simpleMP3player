@@ -267,7 +267,7 @@ class SimpleMP3Player(object):
             pygame.display.update()
             self.clock.tick(self.fps)
 
-            # Block to loop music
+            # Loop music
             if (self.musicPlayer.atEnd()):
                 good = False
                 while not good:
