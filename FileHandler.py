@@ -24,7 +24,6 @@ from   Structures       import *   # Structures File
 
 class FileHandler(object):
     def __init__(self, directory, filename):
-        # SLASH = "/"
         self.filename = directory + SLASH + filename
 
     # Method overwrites file with given tokens

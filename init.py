@@ -172,7 +172,6 @@ class SimpleMP3Player(object):
                         good = False
                         while not good:
                             try:
-                                self.buttonBlock.mouseDown("previous")
                                 if (self.currentSong == 0):
                                     self.currentSong = self.songsBlock.getSongCount() - 1
                                 else:
@@ -184,17 +183,14 @@ class SimpleMP3Player(object):
 
                     # Handles Play button
                     elif self.buttonBlock.playButton.obj.collidepoint(self.mouse):
-                        self.buttonBlock.mouseDown("play")
-                        self.musicPlayer.play()
+                        self.musicPlayer.play()                    
 
                     # handles Pause button
                     elif self.buttonBlock.pauseButton.obj.collidepoint(self.mouse):
-                        self.buttonBlock.mouseDown("pause")
                         self.musicPlayer.pause()
 
                     # Handles Stop button
                     elif self.buttonBlock.stopButton.obj.collidepoint(self.mouse):
-                        self.buttonBlock.mouseDown("stop")
                         self.musicPlayer.stop()
                         self.timeBlock.update(self.musicPlayer.getPosition())
                         
@@ -203,7 +199,6 @@ class SimpleMP3Player(object):
                         good = False
                         while not good:
                             try:
-                                self.buttonBlock.mouseDown("next")
                                 if (self.currentSong == self.songs.getSongCount() - 1):
                                     self.currentSong = 0
                                 else:
@@ -230,9 +225,30 @@ class SimpleMP3Player(object):
                     mouseDown      = False
                     sliderSelected = None
 
-                    # Handles mouse up on buttons
-                    self.buttonBlock.mouseUp()
-                    self.directoryBlock.mouseUp()
+                # Button Hovers
+                # Previous
+                elif self.buttonBlock.isInBounds(self.mouse, "Previous"):
+                    self.buttonBlock.mouseHover("Previous")
+                
+                # Play
+                elif self.buttonBlock.isInBounds(self.mouse, "Play"):
+                    self.buttonBlock.mouseHover("Play")
+
+                # Pause
+                elif self.buttonBlock.isInBounds(self.mouse, "Pause"):
+                    self.buttonBlock.mouseHover("Pause")
+
+                # Stop
+                elif self.buttonBlock.isInBounds(self.mouse, "Stop"):
+                    self.buttonBlock.mouseHover("Stop")
+
+                # Next
+                elif self.buttonBlock.isInBounds(self.mouse, "Next"):
+                    self.buttonBlock.mouseHover("Next")
+
+                # Directory
+                elif self.directoryBlock.isInBounds(self.mouse):
+                    self.directoryBlock.mouseHover()
 
                 # Handle Mouse Hover event for volume slider
                 elif self.volumeBlock.isInBounds(self.mouse[X], self.mouse[Y]):
@@ -242,6 +258,31 @@ class SimpleMP3Player(object):
                 # Handle Mouse not Hover event for volume slider
                 elif not self.volumeBlock.isInBounds(self.mouse[X], self.mouse[Y]):
                     sliderHovered = False
+
+            # Handles unhover
+            # Previous
+            if not self.buttonBlock.isInBounds(self.mouse, "Previous"):
+                self.buttonBlock.mouseUnHover("Previous")
+
+            # Play
+            if not self.buttonBlock.isInBounds(self.mouse, "Play"):
+                self.buttonBlock.mouseUnHover("Play")
+
+            # Pause
+            if not self.buttonBlock.isInBounds(self.mouse, "Pause"):
+                self.buttonBlock.mouseUnHover("Pause")
+
+            # Stop
+            if not self.buttonBlock.isInBounds(self.mouse, "Stop"):
+                self.buttonBlock.mouseUnHover("Stop")
+
+            # Next
+            if not self.buttonBlock.isInBounds(self.mouse, "Next"):
+                self.buttonBlock.mouseUnHover("Next")
+
+            # Directory
+            if not self.directoryBlock.isInBounds(self.mouse):
+                self.directoryBlock.mouseUnHover()
 
             # If slider is not hovered or selected, don't show percent
             if (not mouseDown and not sliderHovered and not sliderSelected):

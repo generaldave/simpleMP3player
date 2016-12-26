@@ -58,13 +58,17 @@ class DirectoryBlock(object):
                                               self.rectColor,     \
                                               self.rectCoordinates)
 
-    # Method sets up directory
-    def setupDirectory(self):
+    # Method draws button
+    def drawButton(self):
         imagePath = self.directory + self.image
         self.directoryButton = Button(self.screen, 'directory', imagePath, \
                                       Colour['GRAY'])
         self.directoryButton.draw(self.mouse, \
                                  (20,290,52,52), (21,291))
+
+    # Method sets up directory
+    def setupDirectory(self):
+        self.drawButton()
         
         self.directoryText = ScrollingText(self.screen,                \
                                            self.musicDirectory,        \
@@ -74,20 +78,27 @@ class DirectoryBlock(object):
                                            self.fps, self.textColor,   \
                                            self.timer)
 
-    # Method changes image for mouse down
+    # Method handles directory work
     def mouseDown(self, directory):
-        self.image = "/images/directoryDown.png"
         self.musicDirectory = directory
         self.setupDirectory()
 
+    # Method changes image for mouse hover
+    def mouseHover(self):
+        self.image = "/images/directoryDown.png"
+        self.drawButton()      
+
     # Method changes image for mouse down
-    def mouseUp(self):
+    def mouseUnHover(self):
         self.image = "/images/directory.png"
-        self.setupDirectory()
+        self.drawButton()
+
+    # Method decides whether mouse is in boundaries of directory button
+    def isInBounds(self, mouse):
+        return self.directoryButton.checkHover(mouse)
 
     # Method updates DirectoryBlock, redraw rec and scroll text
     def update(self):
         self.setupRect()
         self.directoryText.update()
-        self.directoryButton.draw(self.mouse, \
-                                 (20,290,52,52), (21,291))
+        self.drawButton()

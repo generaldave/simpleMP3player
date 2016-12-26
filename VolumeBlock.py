@@ -53,7 +53,7 @@ class VolumeBlock(object):
 
     # Method returns volume %
     def getVolume(self):
-        return (self.slider.getPercent() / 100.0 / 4)
+        return (self.slider.getPercent() / 100.0 / 2)
 
     # Method determines whether or not to draw volume indicator
     def setDrawPercent(self, value):

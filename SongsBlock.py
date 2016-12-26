@@ -65,15 +65,14 @@ class SongsBlock(object):
 
         songcount = self.songs.getSongCount()
         # Previous Song
-        if (songcount >= 3):
-            if (self.index == 0):
-                index = songcount - 1
-            else:
-                index = self.index - 1
-            previousSong  = self.songs.getTitle(index)[:32]
-            self.previous = self.font.render(previousSong, True, \
-                                             self.textColor)
-            self.screen.blit(self.previous, self.previousCoord)
+        if (self.index == 0):
+            index = songcount - 1
+        else:
+            index = self.index - 1
+        previousSong  = self.songs.getTitle(index)[:32]
+        self.previous = self.font.render(previousSong, True, \
+                                            self.textColor)
+        self.screen.blit(self.previous, self.previousCoord)
         
         # Current Song
         currentSong  = self.songs.getTitle(self.index)[:32]
@@ -82,15 +81,14 @@ class SongsBlock(object):
         self.screen.blit(self.current, self.currentCoord)
         
         # Next Song
-        if (songcount >= 3):
-            if (self.index == songcount - 1):
-                index = 0
-            else:
-                index = self.index + 1
-            nextSong  = self.songs.getTitle(index)[:32]
-            self.next = self.font.render(nextSong, True, \
-                                         self.textColor)
-            self.screen.blit(self.next, self.nextCoord)
+        if (self.index == songcount - 1):
+            index = 0
+        else:
+            index = self.index + 1
+        nextSong  = self.songs.getTitle(index)[:32]
+        self.next = self.font.render(nextSong, True, \
+                                        self.textColor)
+        self.screen.blit(self.next, self.nextCoord)
 
     # Method updates Song List Block
     def update(self, index):

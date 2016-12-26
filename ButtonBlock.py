@@ -110,27 +110,45 @@ class ButtonBlock(object):
         # Draw Buttons
         self.drawButtons()
 
-    # Method changes image for mouse down
-    def mouseDown(self, button):
-        if (button == "previous"):
+    # Method changes image for mouse hover
+    def mouseHover(self, button):
+        if (button == "Previous"):
             self.previousImage = self.previousDown
-        elif (button == "play"):
+        elif (button == "Play"):
             self.playImage = self.playDown
-        elif (button == "pause"):
+        elif (button == "Pause"):
             self.pauseImage = self.pauseDown
-        elif (button == "stop"):
+        elif (button == "Stop"):
             self.stopImage = self.stopDown
-        elif (button == "next"):
+        elif (button == "Next"):
             self.nextImage = self.nextDown
             
-    # Method changes image for mouse down
-    def mouseUp(self):
-        self.previousImage = self.previousUp
-        self.playImage     = self.playUp
-        self.pauseImage    = self.pauseUp
-        self.stopImage     = self.stopUp
-        self.nextImage     = self.nextUp
-
+    # Method changes image for mouse unhover
+    def mouseUnHover(self, button):
+        if (button == "Previous"):
+            self.previousImage = self.previousUp        
+        elif (button == "Play"):
+            self.playImage = self.playUp            
+        elif (button == "Pause"):
+            self.pauseImage = self.pauseUp
+        elif (button == "Stop"):
+            self.stopImage = self.stopUp
+        elif (button == "Next"):
+            self.nextImage  = self.nextUp
+    
+    # Method determines whether or not mouse is in bounds of a button
+    def isInBounds(self, mouse, button):
+        if (button == "Previous"):
+            return self.previousButton.checkHover(mouse)
+        elif (button == "Play"):
+            return self.playButton.checkHover(mouse)
+        elif (button == "Pause"):
+            return self.pauseButton.checkHover(mouse)
+        elif (button == "Stop"):
+            return self.stopButton.checkHover(mouse)
+        elif (button == "Next"):
+            return self.nextButton.checkHover(mouse)
+        
     # Method updates ButtonBlock, redraw buttons
     def update(self):
         self.setupButtons()
