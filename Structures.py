@@ -40,8 +40,8 @@ Y          = 1                # Y coordinate for mouse
 
 Colour = {'WHITE'      : (255, 255, 255), \
           'BLACK'      : (0, 0, 0),       \
-          'GRAY'       : (30, 32, 30),    \
-          'DARKGRAY'   : (15, 17, 15),    \
+          'GRAY'       : (30, 31, 30),    \
+          'DARKGRAY'   : (15, 15, 15),    \
           'COPPER'     : (163, 141, 109), \
           'DARKCOPPER' : (143, 121, 89)}
 

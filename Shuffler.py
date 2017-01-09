@@ -37,9 +37,9 @@ class Shuffler:
     def shuffle(self):
         # Shuffles array 10 times
         for i in range(self.TIMES_TO_SHUFFLE):
-            max = len(self.array) - 1
+            maximum = len(self.array) - 1
             randMax = len(self.array) - 1
-            for x in range(max):
+            for x in range(maximum):
                 index = random.randrange(randMax)
                 temp = self.array[index]
                 self.array[index] = self.array[randMax]
