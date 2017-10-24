@@ -31,7 +31,7 @@ class TimeBlock(object):
         self.fps    = fps      # Frames per second
         self.font   = pygame.font.SysFont("Helvetica", 14)
 
-        # Directory information
+        # Time information
         self.textColor   = Colour['COPPER']
         self.coordinates = (224, 108)
         self.time        = time
@@ -44,7 +44,7 @@ class TimeBlock(object):
         self.timer = self.font.render(self.time, True, self.textColor)
         self.screen.blit(self.timer, self.coordinates)
 
-    # Method updates DirectoryBlock, redraw rec and scroll text
+    # Method updates TimeBlock, redraw rec and scroll text
     def update(self, time):
         self.time = time
         self.setupTime()
