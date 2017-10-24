@@ -22,7 +22,7 @@ from   ScrollingText    import *   # Scrolling Text Class
 from   InformationBlock import *   # Information Block Class
 from   ButtonBlock      import *   # Buttons Block Class
 from   DirectoryBlock   import *   # Directory Block Class
-from   TimeBlock        import *   # Directory Block Class
+from   TimeBlock        import *   # Time Block Class
 from   VolumeBlock      import *   # Volume Block Class
 from   SongsBlock       import *   # Song List Block Class
 from   Music            import *   # Handles the music
